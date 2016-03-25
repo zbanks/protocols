@@ -194,5 +194,6 @@ Attempt at a list, so I can make a nice table
 - **Requires:** Half-duplex datagram stream
 - **Provides:** Multicast datagram publishing; Multicast addressing (32-bit); Multiplexing (via *command*, 8-bit); Fragmentation (via *index*); Error detection (CRC32)
 
+---
 
-Copyright 2016, Zach Banks
+[Released under the MIT License](LICENSE)
