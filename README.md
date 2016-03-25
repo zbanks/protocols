@@ -6,6 +6,134 @@ This is not complete, or likely even *correct*. It's a first pass at the most ob
 
 (Table forthcoming)
 
+### Attributes
+Attempt at a list, so I can make a nice table
+
+- Multiplex (MAC?)
+    - Values
+        - One-way (simplex?)
+        - Half-duplex
+        - Full-duplex
+        - Multiplex
+    - Techniques
+        - Channel-division multiplexing (e.g. separate wires, ports, etc.)
+        - Request-response
+        - Time-division multiplexing
+- Payload
+    - Values
+        - Bits
+        - Octets (bytes, words, etc.)
+        - Frame (datagram)
+        - Stream
+    - Techniques
+        - Delimiter (e.g. \x00\x00\x00\x00)
+        - Length-payload
+        - COBS
+- Assembly
+    - Values
+        - None
+        - Fragmentation/assembly
+        - Stream
+    - Techniques
+        - ID & offset
+- Errors
+    - Values
+        - Sensitive
+        - Tolerant
+        - Detection
+        - Correction
+    - Techniques
+        - CRC32
+        - ECC
+        - Redundant data
+        - Replay data
+    - This is a weird category: some protocols have error detection as a requirement on the lower layer(s) -- others are more tolerant of errors or detect errors themselves.
+        - Compare COBS vs. Length-payload encoding: the former can fail from errors without noticing, but it fails more gracefully than the latter
+- Addressing
+    - Values
+        - Single
+        - Addressable (+ size of address space)
+    - Techniques
+        - MAC Address: ~48 bits
+        - IPv4 Address: ~32 bits
+        - IPv6 Address: ~128 bits
+        - Lux Addresses: ~32 bits
+- Versioning
+    - Values
+        - No support
+        - Versioning
+        - Backwards-compatible
+        - Forwards-compatible
+    - Techniques
+        - Version field (usually early / low)
+- Data loss
+    - Values
+        - Undetectable
+        - Gap detection
+        - Gap filling ("guarenteed" delivery)
+    - Techniques
+        - Sequence numbers
+        - ACK
+        - NAK (Negative acknowledgement)
+- Flow Control
+    - Values
+        - No support
+        - Bidirectional
+        - Request-response
+    - Techniques
+        - Out-of-band, e.g. CTS
+        - In-band control messages
+        - TCP-like (no ACK, windowing, etc.)
+        - Request-response, only request when ready to recieve
+- Lower-protocol consistency
+    - Values
+        - Multihoming support
+        - Lower consistency required
+    - Techniques
+        - See SCTP
+    - How do I phrase this better?
+- State
+    - Values
+        - Stateless
+        - Persistent connection
+        - Transactional (short-lived state)
+    - Techniques
+        - Stateless: duplicate information (e.g. "What is your name?": "Foo." vs. "My name is Foo.")
+        - Stateful: Handshakes
+- Security
+    - Values
+        - No support
+        - Data integrity
+        - Data privacy
+        - Authentication / identification
+    - Techniques
+        - HMAC (integrity only)
+        - Public-key cryptography
+        - Diffie-Hellman key exchange
+        - Trusted third parties
+        - See TLS
+- Wire Overhead
+    - Values
+        - *N* bytes per byte/datagram/packet/etc.
+    - Techniques
+        - Header
+- Memory Overhead
+    - Values
+        - Maintainig state
+        - Buffering
+    - Techniques
+        - Stateless protocol
+        - Ability to send a packet piecewise without buffering in memory first. (Checksums at the end!)
+- Computational Overhead
+    - Values
+        - Calculating checksum of every packet
+        - Encryption / decryption
+        - *Action* per byte/datagram/packet/etc.
+    - Techniques
+        - Hard to mitigate
+        
+
+
 ## 802.3 Ethernet (MAC) over 1xBASE-T
 
 - **Requires:** Full-duplex octet stream
@@ -31,7 +159,7 @@ This is not complete, or likely even *correct*. It's a first pass at the most ob
 
 ## HTTP
 
-- **Requires:** Full-duplex so etream connection
+- **Requires:** Full-duplex stream connection
 - **Provides:** Request-response connection; Multiplexing (via URLs, verbs, etc.); Metadata (via headers)
 
 ## SCTP
